@@ -18,7 +18,7 @@ class LocationRecognizer {
     }
 
     /**
-     * Returns sentences with recognized locations.
+     * Saves sentences with recognized locations.
      */
     fun extractLocations(text: String) {
         val document = CoreDocument(text)
