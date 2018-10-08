@@ -17,5 +17,9 @@ fun main(args: Array<String>) {
         section = epubReader.readSection()
     }
 
-    locRecognizer.getLocations().forEach { println(it) }
+    for (location in locRecognizer.getLocations()) {
+        println(location.posTaggedSentence)
+        println(location.dependencies.joinToString(", "))
+        println()
+    }
 }
