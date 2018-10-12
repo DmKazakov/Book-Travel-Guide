@@ -3,4 +3,4 @@ build
 .idea
 *.iml
 out/
-**/NlpPlayground.kt
+src/main/kotlin/ru/hse/spb/kazakov/NlpPlaygroung.kt
