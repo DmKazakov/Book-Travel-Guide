@@ -4,18 +4,18 @@ import com.github.mertakdut.Reader
 import com.github.mertakdut.exception.OutOfPagesException
 
 
-class EpubReader(file: String) {
+class EpubReader(pathToEpub: String) {
     private var currentSection = 0
-    private var isEnd = false
+    private var isEof = false
     private val reader: Reader = Reader()
 
     init {
         reader.setIsIncludingTextContent(true)
-        reader.setFullContent(file)
+        reader.setFullContent(pathToEpub)
     }
 
-    fun readSection(): String? {
-        if (isEnd) {
+    fun readNextSection(): String? {
+        if (isEof) {
             return null
         }
 
@@ -26,7 +26,7 @@ class EpubReader(file: String) {
                 currentSection++
                 section.sectionTextContent.trim()
             } catch (exception: OutOfPagesException) {
-                isEnd = true
+                isEof = true
                 null
             }
         } while (text == "")

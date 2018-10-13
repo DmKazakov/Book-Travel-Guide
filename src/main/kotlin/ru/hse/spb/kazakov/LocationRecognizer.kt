@@ -9,7 +9,7 @@ import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation
 
 
-class Pipeliner {
+class LocationRecognizer {
     private val pipeline: StanfordCoreNLP
 
     init {

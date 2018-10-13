@@ -9,15 +9,15 @@ fun main(args: Array<String>) {
         return
     }
     val epubReader = EpubReader(args[0])
-    val pipeliner = Pipeliner()
+    val pipeliner = LocationRecognizer()
 
-    var section = epubReader.readSection()
+    var section = epubReader.readNextSection()
     while (section != null) {
         pipeliner.extractLocations(section).forEach {
             println(it.posTaggedSentence)
             println(it.dependencies.joinToString(", "))
             println()
         }
-        section = epubReader.readSection()
+        section = epubReader.readNextSection()
     }
 }

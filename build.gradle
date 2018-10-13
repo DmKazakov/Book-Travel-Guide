@@ -22,11 +22,17 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.5'
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.5'
+    compile group: 'eu.freme-project', name: 'epublib-core', version: '0.5'
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.11.3'
     compile 'com.github.mertakdut:EpubParser:1.0.95'
     compile group: 'edu.stanford.nlp', name: 'stanford-corenlp', version: '3.9.1'
     compile group: 'edu.stanford.nlp', name: 'stanford-corenlp', version: '3.9.1', classifier: 'models'
     compile group: 'edu.stanford.nlp', name: 'stanford-corenlp', version: '3.9.1', classifier: 'models-english'
     compile group: 'edu.stanford.nlp', name: 'stanford-corenlp', version: '3.9.1', classifier: 'models-english-kbp'
+}
+
+configurations.all {
+    exclude module: 'slf4j-simple'
 }
 
 compileKotlin {
