@@ -67,7 +67,6 @@ class LocationRecognizer {
         return tokens
             .asSequence()
             .drop(lastIndex)
-            //.take(max(NEIGHBORS_NUM, tokens.size - lastIndex))
             .take(NEIGHBORS_NUM)
             .map { Token(it.originalText(), it.get(PartOfSpeechAnnotation::class.java)) }
             .toList()
@@ -79,7 +78,6 @@ class LocationRecognizer {
         return tokens
             .asSequence()
             .drop(max(0, firsIndex - NEIGHBORS_NUM - 1))
-            //.take(max(NEIGHBORS_NUM, firsIndex - 1))
             .take(NEIGHBORS_NUM)
             .map { Token(it.originalText(), it.get(PartOfSpeechAnnotation::class.java)) }
             .toList()
