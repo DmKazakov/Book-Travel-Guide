@@ -5,4 +5,4 @@ build
 out/
 src/main/kotlin/ru/hse/spb/kazakov/NlpPlaygroung.kt
 src/main/kotlin/ru/hse/spb/kazakov/EpubParser.kt
-src/test/kotlin/ru/hse/spb/kazakovEpubParserTest.kt
+src/test/kotlin/ru/hse/spb/kazakov/EpubParserTest.kt
