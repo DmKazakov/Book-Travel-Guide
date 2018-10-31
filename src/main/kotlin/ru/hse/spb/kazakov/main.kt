@@ -1,28 +1,16 @@
 package ru.hse.spb.kazakov
 
-import com.mongodb.MongoClient
-import org.mongodb.morphia.Morphia
-import ru.hse.spb.kazakov.nlp.LocationRecognizer
+import java.io.File
 
-/**
- * Prints all sentences from specified epub file with mentions of locations.
- */
 fun main(args: Array<String>) {
     if (args.isEmpty()) {
         println("No epub file specified.")
         return
     }
-    val epubReader = EpubReader(args[0])
-    val pipeliner = LocationRecognizer()
 
-    val morphia = Morphia()
-    morphia.mapPackage("ru.hse.spb.kazakov.nlp.LocationContext")
-    val datastore = morphia.createDatastore(MongoClient("127.0.0.1", 27017), "BookTravelGuide")
-    datastore.ensureIndexes()
-
-    var section = epubReader.readNextSection()
-    while (section != null) {
-        pipeliner.extractLocations(section).forEach { datastore.save(it) }
-        section = epubReader.readNextSection()
-    }
+    val bookHandler = BookHandler("127.0.0.1", 27017, "BookTravelGuide")
+    File(args[0])
+        .walk()
+        .filter { !it.name.contains("images") && it.isFile }
+        .forEach { bookHandler.processBook(it) }
 }

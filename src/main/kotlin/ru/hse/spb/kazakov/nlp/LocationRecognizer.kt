@@ -9,7 +9,6 @@ import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation
 import edu.stanford.nlp.ling.IndexedWord
 import kotlin.math.max
 
-
 private const val NEIGHBORS_NUM = 3
 
 class LocationRecognizer {
@@ -36,7 +35,11 @@ class LocationRecognizer {
                 val outDeps = it.getOutgoingDependencies()
                 val lNeighbors = it.getLeftNeighbors()
                 val rNeighbors = it.getRightNeighbors()
-                LocationContext(it.text(), it.sentence().text(), inDeps, outDeps, lNeighbors, rNeighbors)
+                val sectionOffset = it.tokens().first().beginPosition()
+                LocationContext(
+                    it.text(), it.sentence().text(), sectionOffset,
+                    inDeps, outDeps, lNeighbors, rNeighbors
+                )
             }
             .toList()
     }
