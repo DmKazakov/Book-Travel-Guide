@@ -25,6 +25,10 @@ class BookHandler(host: String, port: Int, dbName: String) {
      */
     fun processBook(book: File) {
         val reader = EpubReader(book.absolutePath)
+        if (!reader.isValid()) {
+            return
+        }
+
         var section = reader.readNextSection()
         var sectionNumber = 0
         while (section != null) {
@@ -40,7 +44,7 @@ class BookHandler(host: String, port: Int, dbName: String) {
 
     @Entity
     data class BookLocation(
-        var title: String = "", var author: String = "",
+        var title: String? = "", var author: String? = "",
         var position: Int = 0, var location: LocationContext = LocationContext(), @Id var id: Int = 0
     )
 }

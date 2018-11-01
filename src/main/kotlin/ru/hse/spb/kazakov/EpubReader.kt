@@ -7,9 +7,9 @@ class EpubReader(pathToEpub: String) {
     private var currentSection = 0
     private var isEof = false
     private val reader: Reader = Reader()
-    val creator
+    val creator: String?
         get() = reader.infoPackage.metadata.creator
-    val title
+    val title: String?
         get() = reader.infoPackage.metadata.title
 
     init {
@@ -19,7 +19,8 @@ class EpubReader(pathToEpub: String) {
 
     fun isValid(): Boolean {
         val metadata = reader.infoPackage.metadata
-        return title != "" && creator != "" && metadata.language == "en"
+        return title != null && creator != null
+                && (metadata.language == "eng" || metadata.language == "en" || metadata.language == "english")
     }
 
     fun readNextSection(): String? {

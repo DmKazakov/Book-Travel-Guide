@@ -2,6 +2,9 @@ package ru.hse.spb.kazakov
 
 import java.io.File
 
+/**
+ * Recursively traverses directories and stores location extracted from found epub files in database.
+ */
 fun main(args: Array<String>) {
     if (args.isEmpty()) {
         println("No epub file specified.")
