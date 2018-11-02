@@ -13,9 +13,13 @@ data class OutgoingDependency(var token: Token = Token(), var dependencyType: St
 
 @Embedded
 data class LocationContext(
-    var location: String = "", var sentence: String = "", var sectionOffset: Int = 0,
-    var inDeps: List<IncomingDependency> = emptyList(), var outDeps: List<OutgoingDependency> = emptyList(),
-    var leftNeighbors: List<Token> = emptyList(), var rightNeighbors: List<Token> = emptyList()
+    var location: String = "",
+    var sentence: String = "",
+    var sectionOffset: Int = 0,
+    var inDeps: List<IncomingDependency> = emptyList(),
+    var outDeps: List<OutgoingDependency> = emptyList(),
+    var leftNeighbors: List<Token> = emptyList(),
+    var rightNeighbors: List<Token> = emptyList()
 ) {
     fun evaluateRating(): Int {
         return outDeps.asSequence().filter { it.dependencyType == "amod" }.count()

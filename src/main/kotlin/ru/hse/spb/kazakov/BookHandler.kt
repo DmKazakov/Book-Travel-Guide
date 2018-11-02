@@ -1,6 +1,7 @@
 package ru.hse.spb.kazakov
 
 import com.mongodb.MongoClient
+import org.bson.types.ObjectId
 import org.mongodb.morphia.Datastore
 import org.mongodb.morphia.Morphia
 import org.mongodb.morphia.annotations.Entity
@@ -8,6 +9,30 @@ import org.mongodb.morphia.annotations.Id
 import ru.hse.spb.kazakov.nlp.LocationContext
 import ru.hse.spb.kazakov.nlp.LocationRecognizer
 import java.io.File
+
+interface DatastoreFactory {
+    fun datastore(name: String): Datastore
+}
+
+class FongoDatastoreFactory: DatastoreFactory {
+    override fun datastore(name: String): Datastore {
+        TODO()
+    }
+}
+
+
+class MongoDatastoreFactory: DatastoreFactory {
+    override fun datastore(name: String): Datastore {
+        TODO()
+    }
+}
+
+//Fongo
+
+abstract class BookLocationStore(private val datastore: Datastore) {
+    abstract fun save(bookLocation: BookLocation)
+    fun byId() = TODO()
+}
 
 class BookHandler(host: String, port: Int, dbName: String) {
     private val pipeliner = LocationRecognizer()
@@ -41,10 +66,19 @@ class BookHandler(host: String, port: Int, dbName: String) {
             sectionNumber++
         }
     }
+}
 
-    @Entity
-    data class BookLocation(
-        var title: String? = "", var author: String? = "",
-        var position: Int = 0, var location: LocationContext = LocationContext(), @Id var id: Int = 0
-    )
+
+@Entity
+data class BookLocation(
+        val title: String?,
+        val author: String?,
+        val position: Int,
+        val location: LocationContext
+) {
+    @Id val id: ObjectId = ObjectId()
+
+    //todo can possible use objenesis
+    @Deprecated("don't use morphia only")
+    constructor(): this(null, null, -1, LocationContext())
 }
