@@ -3,5 +3,5 @@ build
 .idea
 *.iml
 **/out
-backend/src/main/kotlin/ru/hse/spb/kazakov/NlpPlaygroung.kt
+backend/src/main/kotlin/ru/hse/spb/kazakov/nlp/NlpPlaygroung.kt
 backend/src/test/kotlin/ru/hse/spb/kazakov/BookHandlerTest.kt
