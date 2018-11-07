@@ -10,7 +10,7 @@ class BookLocationStore(dbName: String, host: String, port: Int) {
 
     init {
         val morphia = Morphia()
-        morphia.mapPackage("ru.hse.spb.kazakov")
+        morphia.mapPackage("ru")
         datastore = morphia.createDatastore(MongoClient(host, port), dbName)
         datastore.ensureIndexes()
     }
