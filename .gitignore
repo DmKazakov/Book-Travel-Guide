@@ -2,7 +2,6 @@ build
 .gradle
 .idea
 *.iml
-out/
-src/main/kotlin/ru/hse/spb/kazakov/NlpPlaygroung.kt
-src/main/kotlin/ru/hse/spb/kazakov/EpubParser.kt
-src/test/kotlin/ru/hse/spb/kazakov/EpubParserTest.kt
+**/out
+backend/src/main/kotlin/ru/hse/spb/kazakov/NlpPlaygroung.kt
+backend/src/test/kotlin/ru/hse/spb/kazakov/BookHandlerTest.kt
