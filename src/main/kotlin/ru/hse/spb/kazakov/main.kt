@@ -11,7 +11,8 @@ fun main(args: Array<String>) {
         return
     }
 
-    val bookHandler = BookHandler("127.0.0.1", 27017, "BookTravelGuide")
+    val bookLocStore = BookLocationStore("BookTravelGuide", "127.0.0.1", 27017)
+    val bookHandler = BookHandler(bookLocStore)
     File(args[0])
         .walk()
         .filter { !it.name.contains("images") && it.isFile }
