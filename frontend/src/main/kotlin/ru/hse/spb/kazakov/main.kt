@@ -46,6 +46,20 @@ fun main(args: Array<String>) {
 
                 call.respondText(result.toJSONString())
             }
+
+            get("/quote_review") {
+                val parameters = call.request.queryParameters
+                val id = parameters["id"] //TODO how to get ObjectId?
+                val action = parameters["action"]
+
+                val location = bookLocStore.getById(id)
+                if (action == "inc") {
+                    location.incUserRating()
+                } else if (action == "dec") {
+                    location.decUserRating()
+                }
+                bookLocStore.save(location)
+            }
         }
     }
     server.start(wait = true)

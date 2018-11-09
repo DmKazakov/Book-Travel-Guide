@@ -23,11 +23,13 @@ data class BookLocation(
     @Deprecated("For morphia only")
     constructor() : this(null, null, -1, LocationContext(), -1)
 
-    fun incUserRating() = userRating++
+    fun incUserRating() {
+        userRating++
+        reviewsNumber++
+    }
 
-    fun decUserRating() = userRating--
-
-    fun incReviewsNumber() = reviewsNumber++
-
-    fun decReviewsNumber() = reviewsNumber--
+    fun decUserRating() {
+        userRating--
+        reviewsNumber++
+    }
 }

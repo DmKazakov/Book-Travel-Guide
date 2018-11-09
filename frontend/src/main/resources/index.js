@@ -1,21 +1,28 @@
-var list = document.querySelector('ul');
+function sendPostRequest(id, action) {
+    var xhr = new XMLHttpRequest();
+    var body = 'id=' + encodeURIComponent(id) + '&action=' + encodeURIComponent(action);
 
+    xhr.open("POST", '/quote_review', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+}
+
+var list = document.querySelector('ul');
 list.addEventListener('click', function (ev) {
     if (ev.target.tagName === 'LI' && ev.target.classList !== 'interesting') {
         ev.target.classList = 'interesting';
-        //TODO send inc query
+        sendPostRequest(ev.target.id, "inc"); //TODO check
     }
 }, false);
 
 function fetchLocationSet() {
     function addLocation(locationContext) {
         var location = locationContext['location'];
-        var qoute = locationContext['quote'];
+        var quote = locationContext['quote'];
         var id = locationContext['id'];
         var listItem = document.createElement('li');
         listItem.id = id;
-        listItem.innerHTML = "<b>Location:<\b> " + location + "<br>" + qoute;
-        list.appendChild(listItem)
+        listItem.innerHTML = "<b>Location:<\b> " + location + "<br>" + quote;
+        list.appendChild(listItem);
     }
 
     var url = "/locations_set"; //TODO
@@ -32,10 +39,14 @@ function fetchLocationSet() {
 function nextSet() {
     var listItem = document.querySelectorAll('.locations li');
     for (var i = 0; i < listItem.length; i++) {
-        if(listItem[i].className !== 'interesting') {
-            //TODO send deq query
+        if (listItem[i].className !== 'interesting') {
+            sendPostRequest(listItem[i].id, "dec")
         }
-        list.removeChild(listItem[i])
+        list.removeChild(listItem[i]);
     }
-    fetchLocationSet()
+    fetchLocationSet();
 }
+
+var updateButton = document.getElementById('update');
+updateButton.addEventListener('click', nextSet);
+nextSet();
