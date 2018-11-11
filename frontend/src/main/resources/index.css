@@ -1,9 +1,14 @@
+body {
+    margin: 25px;
+}
+
 ul {
     margin: 0;
     padding: 0;
 }
 
 ul li {
+    list-style-type: none;
     cursor: pointer;
     position: relative;
     padding: 12px 8px 12px 40px;
@@ -22,7 +27,7 @@ ul li:nth-child(odd) {
 }
 
 ul li:hover {
-    background: #ddd;
+    background: #d7d7d7;
 }
 
 ul li.interesting {

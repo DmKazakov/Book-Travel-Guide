@@ -1,55 +1,50 @@
 package ru.hse.spb.kazakov
 
 import io.ktor.application.*
-import io.ktor.http.*
+import io.ktor.content.resources
+import io.ktor.content.static
+import io.ktor.request.receive
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.ktor.util.ValuesMap
+import org.bson.types.ObjectId
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 
 private const val LOCATIONS_PER_PAGE = 5
 
 fun main(args: Array<String>) {
-    val bookLocStore = BookLocationStore("BookTravelGuide", "127.0.0.1", 27017)
+    val bookLocStore = BookLocationStore(Datastore.instance)
 
     val server = embeddedServer(Netty, port = 8080) {
         routing {
-            get("/") {
-                val html = this.javaClass.getResource("/index.html").readText()
-                call.respondText(html, ContentType.Text.Html)
-            }
-
-            get("/index.css") {
-                val css = this.javaClass.getResource("/index.css").readText()
-                call.respondText(css, ContentType.Text.CSS)
-            }
-
-            get("/index.js") {
-                val js = this.javaClass.getResource("/index.js").readText()
-                call.respondText(js, ContentType.Text.JavaScript)
+            static("static") {
+                resources()
             }
 
             get("/locations_set") {
                 val jArray = JSONArray()
                 val locations = bookLocStore.getUnreviewedLocations(LOCATIONS_PER_PAGE)
-                locations.forEach {
-                    val jObject = JSONObject()
-                    jObject.put("location", it.location.location)
-                    jObject.put("quote", it.location.sentence)
-                    jObject.put("id", it.morphiaId)
-                    jArray.add(jObject)
-                }
+
+                locations.map {
+                    JSONObject().apply {
+                        put("location", it.location.location)
+                        put("quote", it.location.sentence)
+                        put("id", it.morphiaId.toHexString())
+                    }
+                }.forEach { jArray.add(it) }
+
                 val result = JSONObject()
-                result.put("locations", jArray)
+                result["locations"] = jArray
 
                 call.respondText(result.toJSONString())
             }
 
-            get("/quote_review") {
-                val parameters = call.request.queryParameters
-                val id = parameters["id"] //TODO how to get ObjectId?
+            post("/quote_review") {
+                val parameters = call.receive<ValuesMap>()
+                val id = parameters["id"].let { ObjectId(it) }
                 val action = parameters["action"]
 
                 val location = bookLocStore.getById(id)

@@ -11,7 +11,7 @@ fun main(args: Array<String>) {
         return
     }
 
-    val bookLocStore = BookLocationStore("BookTravelGuide", "127.0.0.1", 27017)
+    val bookLocStore = BookLocationStore(Datastore.instance)
     val bookHandler = BookHandler(bookLocStore)
     File(args[0])
         .walk()

@@ -1,52 +1,47 @@
-function sendPostRequest(id, action) {
-    var xhr = new XMLHttpRequest();
-    var body = 'id=' + encodeURIComponent(id) + '&action=' + encodeURIComponent(action);
-
-    xhr.open("POST", '/quote_review', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-}
-
-var list = document.querySelector('ul');
-list.addEventListener('click', function (ev) {
-    if (ev.target.tagName === 'LI' && ev.target.classList !== 'interesting') {
-        ev.target.classList = 'interesting';
-        sendPostRequest(ev.target.id, "inc"); //TODO check
-    }
-}, false);
-
-function fetchLocationSet() {
-    function addLocation(locationContext) {
-        var location = locationContext['location'];
-        var quote = locationContext['quote'];
-        var id = locationContext['id'];
-        var listItem = document.createElement('li');
-        listItem.id = id;
-        listItem.innerHTML = "<b>Location:<\b> " + location + "<br>" + quote;
-        list.appendChild(listItem);
+$(document).ready(function () {
+    function sendPostRequest(id, action) {
+        $.post("/quote_review",
+            {
+                id: id,
+                action: action
+            }
+        )
     }
 
-    var url = "/locations_set"; //TODO
-    fetch(url).then(function (response) {
-        return response.json();
-    }).then(function (locations) {
-        var locationsArray = locations['locations'];
-        for (var i = 0; i < locationsArray.length; i++) {
-            addLocation(locationsArray[i]);
+    function fetchLocationSet() {
+        function addLocation(locationContext) {
+            const location = locationContext['location'];
+            const quote = locationContext['quote'];
+            const id = locationContext['id'];
+            const listItem = `<li id=${id}> <b>Location: </b> ${location} <br> ${quote} </li>`;
+            $("ul").append(listItem);
         }
+
+        $.get("/locations_set", {}, function (response) {
+            const locations = JSON.parse(response);
+            const locationsArray = locations['locations'];
+            for (let i = 0; i < locationsArray.length; i++) {
+                addLocation(locationsArray[i]);
+            }
+
+            $("li").click(function () {
+                if (this.className !== 'interesting') {
+                    this.className = 'interesting';
+                    sendPostRequest(this.id, "inc");
+                }
+            });
+        });
+    }
+
+    $("button").click(function nextSet() {
+        $("li").each(function () {
+            if (this.className !== 'interesting') {
+                sendPostRequest(this.id, "dec");
+            }
+            $(`#${this.id}`).remove();
+        });
+        fetchLocationSet();
     });
-}
 
-function nextSet() {
-    var listItem = document.querySelectorAll('.locations li');
-    for (var i = 0; i < listItem.length; i++) {
-        if (listItem[i].className !== 'interesting') {
-            sendPostRequest(listItem[i].id, "dec")
-        }
-        list.removeChild(listItem[i]);
-    }
-    fetchLocationSet();
-}
-
-var updateButton = document.getElementById('update');
-updateButton.addEventListener('click', nextSet);
-nextSet();
+    fetchLocationSet()
+});
