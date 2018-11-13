@@ -5,7 +5,7 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.5'
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.5'
     compile group: 'eu.freme-project', name: 'epublib-core', version: '0.5'

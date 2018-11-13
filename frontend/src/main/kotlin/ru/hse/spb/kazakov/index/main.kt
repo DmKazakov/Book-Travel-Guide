@@ -1,4 +1,4 @@
-package ru.hse.spb.kazakov
+package ru.hse.spb.kazakov.index
 
 import io.ktor.application.*
 import io.ktor.content.resources
@@ -12,6 +12,8 @@ import io.ktor.util.ValuesMap
 import org.bson.types.ObjectId
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
+import ru.hse.spb.kazakov.BookLocationStore
+import ru.hse.spb.kazakov.Datastore
 
 private const val LOCATIONS_PER_PAGE = 5
 
