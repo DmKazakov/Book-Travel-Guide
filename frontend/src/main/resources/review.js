@@ -11,13 +11,13 @@ $(document).ready(function () {
     function fetchLocationSet() {
         function addLocation(locationContext) {
             const location = locationContext['location'];
-            const quote = locationContext['quote'];
+            const quote = locationContext['sentence'];
             const id = locationContext['id'];
             const listItem = `<li id=${id}> <b>Location: </b> ${location} <br> ${quote} </li>`;
             $("ul").append(listItem);
         }
 
-        $.get("/locations_set", {}, function (response) {
+        $.get("/unreviewed_locations", {}, function (response) {
             const locations = JSON.parse(response);
             const locationsArray = locations['locations'];
             for (let i = 0; i < locationsArray.length; i++) {

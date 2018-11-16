@@ -16,4 +16,9 @@ class BookLocationStore(private val datastore: Datastore) {
                     .filter("reviewsNumber ==", 0)
                     .limit(locationsNumber)
                     .asList()
+
+    fun getReviewedLocations(): List<BookLocation> =
+            datastore.createQuery(BookLocation::class.java)
+                    .filter("reviewsNumber >", 0)
+                    .asList()
 }

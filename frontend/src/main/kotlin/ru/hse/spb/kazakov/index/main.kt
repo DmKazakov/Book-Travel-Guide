@@ -10,8 +10,6 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.util.ValuesMap
 import org.bson.types.ObjectId
-import org.json.simple.JSONArray
-import org.json.simple.JSONObject
 import ru.hse.spb.kazakov.BookLocationStore
 import ru.hse.spb.kazakov.Datastore
 
@@ -26,27 +24,14 @@ fun main(args: Array<String>) {
                 resources()
             }
 
-            get("/locations_set") {
-                val jArray = JSONArray()
+            get("/unreviewed_locations") {
                 val locations = bookLocStore.getUnreviewedLocations(LOCATIONS_PER_PAGE)
-
-                locations.map {
-                    JSONObject().apply {
-                        put("location", it.location.location)
-                        put("quote", it.location.sentence)
-                        put("id", it.morphiaId.toHexString())
-                    }
-                }.forEach { jArray.add(it) }
-
-                val result = JSONObject()
-                result["locations"] = jArray
-
-                call.respondText(result.toJSONString())
+                call.respondText(toJSON(locations))
             }
 
             post("/quote_review") {
                 val parameters = call.receive<ValuesMap>()
-                val id = parameters["id"].let { ObjectId(it) }
+                val id = ObjectId(parameters["id"])
                 val action = parameters["action"]
 
                 val location = bookLocStore.getById(id)
@@ -57,7 +42,13 @@ fun main(args: Array<String>) {
                 }
                 bookLocStore.save(location)
             }
+
+            get("/reviewed_locations") {
+                val locations = bookLocStore.getReviewedLocations()
+                call.respondText(toJSON(locations))
+            }
         }
     }
     server.start(wait = true)
 }
+
