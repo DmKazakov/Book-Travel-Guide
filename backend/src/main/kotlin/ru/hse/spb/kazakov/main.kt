@@ -10,8 +10,13 @@ fun main(args: Array<String>) {
 
     val bookLocStore = BookLocationStore(Datastore.getInstance(args[1]))
     val bookHandler = BookHandler(bookLocStore)
-    File(args[0])
-        .walk()
-        .filter { !it.name.contains("images") && it.isFile }
-        .forEach { bookHandler.processBook(it) }
+    File(args[2]).printWriter().use {out ->
+        File(args[0])
+                .walk()
+                .filter { !it.name.contains("images") && it.isFile }
+                .forEach {
+                    out.println(it.canonicalPath)
+                    bookHandler.processBook(it)
+                }
+    }
 }
