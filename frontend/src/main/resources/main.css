@@ -1,13 +1,13 @@
 body {
-    margin: 25px;
+    margin: 0;
 }
 
-ul {
+.main {
     margin: 0;
     padding: 0;
 }
 
-ul li {
+.main li {
     list-style-type: none;
     cursor: pointer;
     position: relative;
@@ -22,16 +22,16 @@ ul li {
     user-select: none;
 }
 
-ul li:nth-child(odd) {
+.main li:nth-child(odd) {
     background: #f9f9f9;
 }
 
-ul li:hover {
+.main li:hover {
     background: #d7d7d7;
 }
 
-ul li.interesting {
-    background: #31883b;
+.main li.interesting {
+    background: #4CAF50;
     color: #fff;
 }
 
@@ -44,4 +44,35 @@ button {
     cursor: pointer;
     font-size: 18px;
     float: right;
+}
+
+.navigation {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navigation li {
+    float: left;
+}
+
+.navigation li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navigation li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
 }

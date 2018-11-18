@@ -18,17 +18,18 @@ fun toJSON(locations: List<BookLocation>): String {
 }
 
 private fun BookLocation.toJSON() = JSONObject().apply {
-    put("title", this@toJSON.title)
-    put("author", this@toJSON.author)
-    put("user rating", this@toJSON.userRating)
-    put("reviews number", this@toJSON.reviewsNumber)
-    put("location", this@toJSON.location.location)
-    put("sentence", this@toJSON.location.sentence)
-    put("incoming deps", this@toJSON.location.inDeps.map { it.toJSON() }.toJArray())
-    put("outgoing deps", this@toJSON.location.outDeps.map { it.toJSON() }.toJArray())
-    put("left neighbors", this@toJSON.location.leftNeighbors.map { it.toJSON() }.toJArray())
-    put("right neighbors", this@toJSON.location.rightNeighbors.map { it.toJSON() }.toJArray())
-    put("id", this@toJSON.morphiaId.toHexString())
+    put("title", title)
+    put("author", author)
+    put("type", location.type)
+    put("user rating", userRating)
+    put("reviews number", reviewsNumber)
+    put("location", location.location)
+    put("sentence", location.sentence)
+    put("incoming deps", location.inDeps.asJsonArray { toJSON() })
+    put("outgoing deps", location.outDeps.asJsonArray { toJSON() })
+    put("left neighbors", location.leftNeighbors.asJsonArray { toJSON() })
+    put("right neighbors", location.rightNeighbors.asJsonArray { toJSON() })
+    put("id", morphiaId.toHexString())
 }
 
 private fun <E> List<E>.toJArray(): JSONArray {
@@ -37,19 +38,23 @@ private fun <E> List<E>.toJArray(): JSONArray {
     return jarray
 }
 
+private fun <E> List<E>.asJsonArray(fn: E.() -> JSONObject): JSONArray {
+    return map { it.fn() }.toJArray()
+}
+
 private fun IncomingDependency.toJSON() = JSONObject().apply {
-    put("token", this@toJSON.token.text)
-    put("pof", this@toJSON.token.partOfSpeech)
-    put("dep type", this@toJSON.dependencyType)
+    put("token", token.text)
+    put("pof", token.partOfSpeech)
+    put("dep type", dependencyType)
 }
 
 private fun OutgoingDependency.toJSON() = JSONObject().apply {
-    put("token", this@toJSON.token.text)
-    put("pof", this@toJSON.token.partOfSpeech)
-    put("dep type", this@toJSON.dependencyType)
+    put("token", token.text)
+    put("pof", token.partOfSpeech)
+    put("dep type", dependencyType)
 }
 
 private fun Token.toJSON() = JSONObject().apply {
-    put("token", this@toJSON.text)
-    put("pof", this@toJSON.partOfSpeech)
+    put("token", text)
+    put("pof", partOfSpeech)
 }

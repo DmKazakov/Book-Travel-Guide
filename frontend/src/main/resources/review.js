@@ -14,7 +14,7 @@ $(document).ready(function () {
             const quote = locationContext['sentence'];
             const id = locationContext['id'];
             const listItem = `<li id=${id}> <b>Location: </b> ${location} <br> ${quote} </li>`;
-            $("ul").append(listItem);
+            $(".main").append(listItem);
         }
 
         $.get("/unreviewed_locations", {}, function (response) {
@@ -24,7 +24,7 @@ $(document).ready(function () {
                 addLocation(locationsArray[i]);
             }
 
-            $("li").click(function () {
+            $(".main li").click(function () {
                 if (this.className !== 'interesting') {
                     this.className = 'interesting';
                     sendPostRequest(this.id, "inc");
@@ -34,7 +34,7 @@ $(document).ready(function () {
     }
 
     $("button").click(function nextSet() {
-        $("li").each(function () {
+        $(".main li").each(function () {
             if (this.className !== 'interesting') {
                 sendPostRequest(this.id, "dec");
             }

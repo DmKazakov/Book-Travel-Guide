@@ -2,16 +2,13 @@ package ru.hse.spb.kazakov
 
 import java.io.File
 
-/**
- * Recursively traverses directories and stores location extracted from found epub files in database.
- */
 fun main(args: Array<String>) {
-    if (args.isEmpty()) {
-        println("No epub file specified.")
+    if (args.size < 3) {
+        println("No epub file, databse IP or log file specified.")
         return
     }
 
-    val bookLocStore = BookLocationStore(Datastore.instance)
+    val bookLocStore = BookLocationStore(Datastore.getInstance(args[1]))
     val bookHandler = BookHandler(bookLocStore)
     File(args[0])
         .walk()

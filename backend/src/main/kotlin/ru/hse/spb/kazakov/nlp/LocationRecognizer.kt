@@ -18,7 +18,6 @@ class LocationRecognizer {
         BasicConfigurator.configure()
         val props = Properties().apply {
             setProperty("annotators", "tokenize, ssplit, pos, lemma, ner, depparse")
-            setProperty("ner.applyFineGrained", "false")
         }
         pipeline = StanfordCoreNLP(props)
     }
@@ -29,7 +28,7 @@ class LocationRecognizer {
 
         return document.entityMentions()
             .asSequence()
-            .filter { it.entityType() == "LOCATION" }
+            .filter { it.entityType().isLocation() }
             .map {
                 val inDeps = it.getIncomingDependencies()
                 val outDeps = it.getOutgoingDependencies()
@@ -37,7 +36,7 @@ class LocationRecognizer {
                 val rNeighbors = it.getRightNeighbors()
                 val sectionOffset = it.tokens().first().beginPosition()
                 LocationContext(
-                    it.text(), it.sentence().text(), sectionOffset,
+                    it.text(), it.sentence().text(), it.entityType(), sectionOffset,
                     inDeps, outDeps, lNeighbors, rNeighbors
                 )
             }
@@ -89,6 +88,8 @@ class LocationRecognizer {
     private fun IndexedWord.toToken(): Token {
         return Token(toString(), get(PartOfSpeechAnnotation::class.java))
     }
+
+    private fun String.isLocation() = this == "CITY" || this == "COUNTRY" || this == "STATE_OR_PROVINCE"
 }
 
 

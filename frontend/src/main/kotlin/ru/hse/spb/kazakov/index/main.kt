@@ -16,7 +16,12 @@ import ru.hse.spb.kazakov.Datastore
 private const val LOCATIONS_PER_PAGE = 5
 
 fun main(args: Array<String>) {
-    val bookLocStore = BookLocationStore(Datastore.instance)
+    if(args.isEmpty()) {
+        println("No IP specified.")
+        return
+    }
+
+    val bookLocStore = BookLocationStore(Datastore.getInstance(args[0]))
 
     val server = embeddedServer(Netty, port = 8080) {
         routing {
@@ -43,8 +48,13 @@ fun main(args: Array<String>) {
                 bookLocStore.save(location)
             }
 
-            get("/reviewed_locations") {
-                val locations = bookLocStore.getReviewedLocations()
+            get("/positive_rate") {
+                val locations = bookLocStore.getPositiveRateLocations()
+                call.respondText(toJSON(locations))
+            }
+
+            get("/negative_rate") {
+                val locations = bookLocStore.getNegativeRateLocations()
                 call.respondText(toJSON(locations))
             }
         }

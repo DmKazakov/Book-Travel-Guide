@@ -22,23 +22,25 @@ data class OutgoingDependency(val token: Token, val dependencyType: String) {
 
 @Embedded
 data class LocationContext(
-    val location: String,
-    val sentence: String,
-    val sectionOffset: Int,
-    val inDeps: List<IncomingDependency>,
-    val outDeps: List<OutgoingDependency>,
-    val leftNeighbors: List<Token>,
-    val rightNeighbors: List<Token>
+        val location: String,
+        val sentence: String,
+        val type: String,
+        val sectionOffset: Int,
+        val inDeps: List<IncomingDependency>,
+        val outDeps: List<OutgoingDependency>,
+        val leftNeighbors: List<Token>,
+        val rightNeighbors: List<Token>
 ) {
     @Deprecated("For morphia use only")
     constructor() : this(
-        "",
-        "",
-        -1,
-        emptyList<IncomingDependency>(),
-        emptyList<OutgoingDependency>(),
-        emptyList<Token>(),
-        emptyList<Token>()
+            "",
+            "",
+            "",
+            -1,
+            emptyList<IncomingDependency>(),
+            emptyList<OutgoingDependency>(),
+            emptyList<Token>(),
+            emptyList<Token>()
     )
 
     fun evaluateRating(): Int {
