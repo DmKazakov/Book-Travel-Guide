@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ./gradlew :frontend:build
-cat <<EOT >> backend/build.gradlew
+cat <<EOT >> backend/build.gradle
 jar {
     manifest {
         attributes 'Main-Class': 'ru.hse.spb.kazakov.MainKt'
