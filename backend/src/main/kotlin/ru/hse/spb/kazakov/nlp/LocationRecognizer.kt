@@ -18,6 +18,11 @@ class LocationRecognizer {
         BasicConfigurator.configure()
         val props = Properties().apply {
             setProperty("annotators", "tokenize, ssplit, pos, lemma, ner, depparse")
+            setProperty("ner.applyNumericClassifiers", "false")
+            setProperty("ner.useSUTime", "false")
+            setProperty("ner.markTimeRanges", "false")
+            setProperty("ner.includeRange", "false")
+            setProperty("ner.model", "edu/stanford/nlp/models/ner/english.all.3class.distsim.crf.ser.gz")
         }
         pipeline = StanfordCoreNLP(props)
     }
@@ -89,7 +94,7 @@ class LocationRecognizer {
         return Token(toString(), get(PartOfSpeechAnnotation::class.java))
     }
 
-    private fun String.isLocation() = this == "CITY" || this == "COUNTRY" || this == "STATE_OR_PROVINCE"
+    private fun String.isLocation() = this == "CITY" || this == "COUNTRY" || this == "STATE_OR_PROVINCE" || this == "LOCATION"
 }
 
 

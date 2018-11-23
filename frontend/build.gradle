@@ -42,10 +42,3 @@ dependencies {
     compile "ch.qos.logback:logback-classic:1.2.3"
     testCompile 'junit:junit:4.11'
 }
-
-jar {
-    manifest {
-        attributes 'Main-Class': 'ru.hse.spb.kazakov.index.MainKt'
-    }
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-}

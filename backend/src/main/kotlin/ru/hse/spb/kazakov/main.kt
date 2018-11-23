@@ -16,6 +16,7 @@ fun main(args: Array<String>) {
                 .filter { !it.name.contains("images") && it.isFile }
                 .forEach {
                     out.println(it.canonicalPath)
+                    out.flush()
                     bookHandler.processBook(it)
                 }
     }
