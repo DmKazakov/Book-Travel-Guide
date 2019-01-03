@@ -26,4 +26,16 @@ class BookLocationStore(private val datastore: Datastore) {
             datastore.createQuery(BookLocation::class.java)
                     .filter("userRating <", 0)
                     .asList()
+
+    fun getOutgoingAmodLocations(): List<BookLocation> =
+            datastore.createQuery(BookLocation::class.java)
+                    .filter("outgoingAmod >", 0)
+                    .order("-outgoingAmod")
+                    .asList()
+
+    fun getNeighborsAmodLocations(): List<BookLocation> =
+            datastore.createQuery(BookLocation::class.java)
+                    .filter("neighborsAmod >", 0)
+                    .order("-neighborsAmod")
+                    .asList()
 }

@@ -57,6 +57,16 @@ fun main(args: Array<String>) {
                 val locations = bookLocStore.getNegativeRateLocations()
                 call.respondText(toJSON(locations))
             }
+
+            get("/outgoing_amod") {
+                val locations = bookLocStore.getOutgoingAmodLocations()
+                call.respondText(toJSON(locations))
+            }
+
+            get("/neighbors_amod") {
+                val locations = bookLocStore.getNeighborsAmodLocations()
+                call.respondText(toJSON(locations))
+            }
         }
     }
     server.start(wait = true)

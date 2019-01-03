@@ -5,13 +5,14 @@ import org.mongodb.morphia.annotations.Entity
 import org.mongodb.morphia.annotations.Id
 import ru.hse.spb.kazakov.nlp.LocationContext
 
+
 @Entity
 data class BookLocation(
-    val title: String?,
-    val author: String?,
-    val section: Int,
-    val location: LocationContext,
-    val sourceId: Int
+        val title: String?,
+        val author: String?,
+        val section: Int,
+        val location: LocationContext,
+        val sourceId: Int
 ) {
     @Id
     val morphiaId: ObjectId = ObjectId()
@@ -19,6 +20,8 @@ data class BookLocation(
         private set
     var reviewsNumber = 0
         private set
+    val outgoingAmod = location.outDeps.asSequence().filter { it.dependencyType == "amod" }.count()
+    val neighborsAmod = location.leftNeighbors.union(location.rightNeighbors).count { it.partOfSpeech.isAdjective() }
 
     @Deprecated("For morphia only")
     constructor() : this(null, null, -1, LocationContext(), -1)
@@ -32,4 +35,6 @@ data class BookLocation(
         userRating--
         reviewsNumber++
     }
+
+    private fun String.isAdjective() = this == "JJ" || this == "JJR" || this == "JJS"
 }
