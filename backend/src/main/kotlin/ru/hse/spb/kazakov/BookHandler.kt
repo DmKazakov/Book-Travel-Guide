@@ -1,6 +1,7 @@
 package ru.hse.spb.kazakov
 
-import ru.hse.spb.kazakov.nlp.LocationRecognizer
+import ru.hse.spb.kazakov.mongo.BookLocation
+import ru.hse.spb.kazakov.mongo.BookLocationStore
 import java.io.File
 
 class BookHandler(private val bookLocStore: BookLocationStore) {

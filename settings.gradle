@@ -2,4 +2,5 @@ rootProject.name = 'book-travel-guide'
 
 include 'backend'
 include 'frontend'
+include 'mongo'
 

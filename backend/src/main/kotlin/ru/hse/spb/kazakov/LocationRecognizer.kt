@@ -1,4 +1,4 @@
-package ru.hse.spb.kazakov.nlp
+package ru.hse.spb.kazakov
 
 import edu.stanford.nlp.pipeline.CoreDocument
 import edu.stanford.nlp.pipeline.CoreEntityMention
@@ -7,6 +7,10 @@ import org.apache.log4j.BasicConfigurator
 import java.util.*
 import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation
 import edu.stanford.nlp.ling.IndexedWord
+import ru.hse.spb.kazakov.mongo.IncomingDependency
+import ru.hse.spb.kazakov.mongo.LocationContext
+import ru.hse.spb.kazakov.mongo.OutgoingDependency
+import ru.hse.spb.kazakov.mongo.Token
 import kotlin.math.max
 
 private const val NEIGHBORS_NUM = 3
@@ -41,8 +45,8 @@ class LocationRecognizer {
                 val rNeighbors = it.getRightNeighbors()
                 val sectionOffset = it.tokens().first().beginPosition()
                 LocationContext(
-                    it.text(), it.sentence().text(), it.entityType(), sectionOffset,
-                    inDeps, outDeps, lNeighbors, rNeighbors
+                        it.text(), it.sentence().text(), it.entityType(), sectionOffset,
+                        inDeps, outDeps, lNeighbors, rNeighbors
                 )
             }
             .toList()

@@ -10,8 +10,8 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.util.ValuesMap
 import org.bson.types.ObjectId
-import ru.hse.spb.kazakov.BookLocationStore
-import ru.hse.spb.kazakov.Datastore
+import ru.hse.spb.kazakov.mongo.BookLocationStore
+import ru.hse.spb.kazakov.mongo.Datastore
 
 private const val LOCATIONS_PER_PAGE = 5
 

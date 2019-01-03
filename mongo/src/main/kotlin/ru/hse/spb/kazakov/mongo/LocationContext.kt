@@ -1,23 +1,23 @@
-package ru.hse.spb.kazakov.nlp
+package ru.hse.spb.kazakov.mongo
 
 import org.mongodb.morphia.annotations.Embedded
 
 @Embedded
 data class Token(val text: String, val partOfSpeech: String) {
     @Deprecated("For morphia use only")
-    constructor() : this("", "")
+    internal constructor() : this("", "")
 }
 
 @Embedded
 data class IncomingDependency(val token: Token, val dependencyType: String) {
     @Deprecated("For morphia use only")
-    constructor() : this(Token(), "")
+    internal constructor() : this(Token(), "")
 }
 
 @Embedded
 data class OutgoingDependency(val token: Token, val dependencyType: String) {
     @Deprecated("For morphia use only")
-    constructor() : this(Token(), "")
+    internal constructor() : this(Token(), "")
 }
 
 @Embedded
@@ -32,7 +32,7 @@ data class LocationContext(
         val rightNeighbors: List<Token>
 ) {
     @Deprecated("For morphia use only")
-    constructor() : this(
+    internal constructor() : this(
             "",
             "",
             "",
@@ -42,8 +42,5 @@ data class LocationContext(
             emptyList<Token>(),
             emptyList<Token>()
     )
-
-    fun evaluateRating(): Int {
-        return outDeps.asSequence().filter { it.dependencyType == "amod" }.count()
-    }
 }
+

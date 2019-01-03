@@ -32,6 +32,8 @@ function addLocation(locationContext) {
     const author = locationContext['author'];
     const type = locationContext['type'];
     const userRating = locationContext['user rating'];
+    const amodDeps = locationContext['amod deps'];
+    const amodNeighbors = locationContext['amod neighbors'];
     const reviewsNumber = locationContext['reviews number'];
     const location = locationContext['location'];
     const quote = locationContext['sentence'];
@@ -45,6 +47,8 @@ function addLocation(locationContext) {
             <b>Author: </b> ${author} <br>
             <b>Type: </b> ${type} <br>
             <b>User rating: </b> ${userRating} <br>
+            <b>Amod deps: </b> ${amodDeps} <br>
+            <b>Amod neighbors: </b> ${amodNeighbors} <br>
             <b>Reviews number: </b> ${reviewsNumber} <br>
             <b>Location: </b> ${location} <br>
             ${quote} <br>

@@ -1,4 +1,4 @@
-package ru.hse.spb.kazakov
+package ru.hse.spb.kazakov.mongo
 
 import org.bson.types.ObjectId
 import org.mongodb.morphia.Datastore
@@ -37,5 +37,9 @@ class BookLocationStore(private val datastore: Datastore) {
             datastore.createQuery(BookLocation::class.java)
                     .filter("neighborsAmod >", 0)
                     .order("-neighborsAmod")
+                    .asList()
+
+    fun getAllLocations(): List<BookLocation> =
+            datastore.createQuery(BookLocation::class.java)
                     .asList()
 }

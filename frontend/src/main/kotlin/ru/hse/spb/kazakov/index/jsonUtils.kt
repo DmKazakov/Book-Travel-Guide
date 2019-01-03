@@ -2,10 +2,10 @@ package ru.hse.spb.kazakov.index
 
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
-import ru.hse.spb.kazakov.BookLocation
-import ru.hse.spb.kazakov.nlp.IncomingDependency
-import ru.hse.spb.kazakov.nlp.OutgoingDependency
-import ru.hse.spb.kazakov.nlp.Token
+import ru.hse.spb.kazakov.mongo.BookLocation
+import ru.hse.spb.kazakov.mongo.IncomingDependency
+import ru.hse.spb.kazakov.mongo.OutgoingDependency
+import ru.hse.spb.kazakov.mongo.Token
 
 fun toJSON(locations: List<BookLocation>): String {
     val jArray = JSONArray()
@@ -22,6 +22,8 @@ private fun BookLocation.toJSON() = JSONObject().apply {
     put("author", author)
     put("type", location.type)
     put("user rating", userRating)
+    put("amod deps", outgoingAmod)
+    put("amod neighbors", neighborsAmod)
     put("reviews number", reviewsNumber)
     put("location", location.location)
     put("sentence", location.sentence)

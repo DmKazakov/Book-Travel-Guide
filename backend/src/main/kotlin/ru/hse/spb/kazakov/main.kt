@@ -1,5 +1,7 @@
 package ru.hse.spb.kazakov
 
+import ru.hse.spb.kazakov.mongo.BookLocationStore
+import ru.hse.spb.kazakov.mongo.Datastore
 import java.io.File
 
 fun main(args: Array<String>) {

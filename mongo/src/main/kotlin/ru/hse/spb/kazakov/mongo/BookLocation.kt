@@ -1,10 +1,8 @@
-package ru.hse.spb.kazakov
+package ru.hse.spb.kazakov.mongo
 
 import org.bson.types.ObjectId
 import org.mongodb.morphia.annotations.Entity
 import org.mongodb.morphia.annotations.Id
-import ru.hse.spb.kazakov.nlp.LocationContext
-
 
 @Entity
 data class BookLocation(
@@ -20,11 +18,13 @@ data class BookLocation(
         private set
     var reviewsNumber = 0
         private set
-    val outgoingAmod = location.outDeps.asSequence().filter { it.dependencyType == "amod" }.count()
-    val neighborsAmod = location.leftNeighbors.union(location.rightNeighbors).count { it.partOfSpeech.isAdjective() }
+    var outgoingAmod = -1
+        get() = location.outDeps.asSequence().filter { it.dependencyType == "amod" }.count()
+    var neighborsAmod = -1
+        get() = location.leftNeighbors.union(location.rightNeighbors).count { it.partOfSpeech.isAdjective() }
 
     @Deprecated("For morphia only")
-    constructor() : this(null, null, -1, LocationContext(), -1)
+    private constructor() : this(null, null, -1, LocationContext(), -1)
 
     fun incUserRating() {
         userRating++
