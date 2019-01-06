@@ -24,6 +24,7 @@ private fun BookLocation.toJSON() = JSONObject().apply {
     put("user rating", userRating)
     put("amod deps", outgoingAmod)
     put("amod neighbors", neighborsAmod)
+    put("sentiment", sentiment)
     put("reviews number", reviewsNumber)
     put("location", location.location)
     put("sentence", location.sentence)

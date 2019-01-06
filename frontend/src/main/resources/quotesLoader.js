@@ -34,6 +34,7 @@ function addLocation(locationContext) {
     const userRating = locationContext['user rating'];
     const amodDeps = locationContext['amod deps'];
     const amodNeighbors = locationContext['amod neighbors'];
+    const sentiment = locationContext['sentiment'];
     const reviewsNumber = locationContext['reviews number'];
     const location = locationContext['location'];
     const quote = locationContext['sentence'];
@@ -49,6 +50,7 @@ function addLocation(locationContext) {
             <b>User rating: </b> ${userRating} <br>
             <b>Amod deps: </b> ${amodDeps} <br>
             <b>Amod neighbors: </b> ${amodNeighbors} <br>
+            <b>Sentiment: </b> ${sentiment} <br>
             <b>Reviews number: </b> ${reviewsNumber} <br>
             <b>Location: </b> ${location} <br>
             ${quote} <br>

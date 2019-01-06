@@ -67,6 +67,11 @@ fun main(args: Array<String>) {
                 val locations = bookLocStore.getNeighborsAmodLocations()
                 call.respondText(toJSON(locations))
             }
+
+            get("/sentiment") {
+                val locations = bookLocStore.getSentimentLocations()
+                call.respondText(toJSON(locations))
+            }
         }
     }
     server.start(wait = true)

@@ -33,7 +33,7 @@ compileTestKotlin {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'ru.hse.spb.kazakov.MainKt'
+        attributes 'Main-Class': 'ru.hse.spb.kazakov.SentimentKt'
     }
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }

@@ -22,6 +22,7 @@ data class BookLocation(
         get() = location.outDeps.asSequence().filter { it.dependencyType == "amod" }.count()
     var neighborsAmod = -1
         get() = location.leftNeighbors.union(location.rightNeighbors).count { it.partOfSpeech.isAdjective() }
+    var sentiment = 2
 
     @Deprecated("For morphia only")
     private constructor() : this(null, null, -1, LocationContext(), -1)
