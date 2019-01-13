@@ -63,8 +63,8 @@ fun main(args: Array<String>) {
                 call.respondText(toJSON(locations))
             }
 
-            get("/neighbors_amod") {
-                val locations = bookLocStore.getNeighborsAmodLocations()
+            get("/neighbors_adj") {
+                val locations = bookLocStore.getNeighborsAdjLocations()
                 call.respondText(toJSON(locations))
             }
 

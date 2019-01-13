@@ -1,3 +1,3 @@
 $(document).ready(function () {
-    load("/neighbors_amod");
+    load("/neighbors_adj");
 });

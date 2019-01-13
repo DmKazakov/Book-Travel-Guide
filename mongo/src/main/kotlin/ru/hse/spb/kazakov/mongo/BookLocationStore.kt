@@ -3,6 +3,8 @@ package ru.hse.spb.kazakov.mongo
 import org.bson.types.ObjectId
 import org.mongodb.morphia.Datastore
 
+private const val QUOTES_LIMIT = 100
+
 class BookLocationStore(private val datastore: Datastore) {
 
     fun save(bookLocation: BookLocation) {
@@ -31,17 +33,20 @@ class BookLocationStore(private val datastore: Datastore) {
             datastore.createQuery(BookLocation::class.java)
                     .filter("outgoingAmod >", 0)
                     .order("-outgoingAmod")
+                    .limit(QUOTES_LIMIT)
                     .asList()
 
-    fun getNeighborsAmodLocations(): List<BookLocation> =
+    fun getNeighborsAdjLocations(): List<BookLocation> =
             datastore.createQuery(BookLocation::class.java)
                     .filter("neighborsAmod >", 0)
                     .order("-neighborsAmod")
+                    .limit(QUOTES_LIMIT)
                     .asList()
 
     fun getSentimentLocations(): List<BookLocation> =
             datastore.createQuery(BookLocation::class.java)
                     .filter("sentiment ==", 2)
+                    .limit(QUOTES_LIMIT)
                     .asList()
 
     fun getAllLocations(): List<BookLocation> =
