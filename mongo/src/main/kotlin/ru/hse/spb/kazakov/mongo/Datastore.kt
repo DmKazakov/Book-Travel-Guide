@@ -6,7 +6,7 @@ import org.mongodb.morphia.Morphia
 
 object Datastore {
     private const val PORT = 27017
-    private const val DB_NAME = "Test"
+    private const val DB_NAME = "BookTravelGuide"
     private lateinit var instance: Datastore
 
     fun getInstance(host: String): Datastore {

@@ -35,10 +35,21 @@ body {
     color: #fff;
 }
 
-button {
+button.update {
     background-color: #4CAF50;
     margin: 25px;
     border: 1px solid green;
+    color: white;
+    padding: 10px 24px;
+    cursor: pointer;
+    font-size: 18px;
+    float: right;
+}
+
+button.delete {
+    background-color: #af371b;
+    margin: 25px;
+    border: 1px solid #800605;
     color: white;
     padding: 10px 24px;
     cursor: pointer;

@@ -13,8 +13,15 @@ $(document).ready(function () {
             const location = locationContext['location'];
             const quote = locationContext['sentence'];
             const id = locationContext['id'];
-            const listItem = `<li id=${id}> <b>Location: </b> ${location} <br> ${quote} </li>`;
+            const listItem = `<li id=${id}> <b>Location: </b> ${location} <br> ${quote} 
+                <button id=${id} class=delete>Delete</button> </li>`;
             $(".main").append(listItem);
+
+            $(`#${id}`).click(function deleteQuote() {
+                $.post("/delete", {
+                    id: id
+                })
+            });
         }
 
         $.get("/unreviewed_locations", {}, function (response) {
@@ -33,7 +40,7 @@ $(document).ready(function () {
         });
     }
 
-    $("button").click(function nextSet() {
+    $("button.update").click(function nextSet() {
         $(".main li").each(function () {
             if (this.className !== 'interesting') {
                 sendPostRequest(this.id, "dec");

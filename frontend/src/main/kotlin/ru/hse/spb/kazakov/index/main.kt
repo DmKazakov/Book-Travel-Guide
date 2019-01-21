@@ -48,6 +48,12 @@ fun main(args: Array<String>) {
                 bookLocStore.save(location)
             }
 
+            post("/delete") {
+                val parameters = call.receive<ValuesMap>()
+                val id = ObjectId(parameters["id"])
+                bookLocStore. deleteQuote(id)
+            }
+
             get("/positive_rate") {
                 val locations = bookLocStore.getPositiveRateLocations()
                 call.respondText(toJSON(locations))
