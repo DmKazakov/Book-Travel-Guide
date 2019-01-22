@@ -12,9 +12,6 @@ class BookHandler(private val bookLocStore: BookLocationStore) {
      */
     fun processBook(book: File) {
         val reader = EpubReader(book.absolutePath)
-        if (!reader.isValid()) {
-            return
-        }
 
         var section = reader.readNextSection()
         var sectionNumber = 0
