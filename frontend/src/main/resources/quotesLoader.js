@@ -1,5 +1,5 @@
 function depsHtml(deps) {
-    let html = `<ul>`;
+    let html = `<ul class="inner">`;
     for (let i = 0; i < deps.length; i++) {
         const dep = `<li>
                 <b>Token: </b> ${deps[i]['token']} <br>
@@ -14,7 +14,7 @@ function depsHtml(deps) {
 }
 
 function neighborsHtml(neighbors) {
-    let html = `<ul>`;
+    let html = `<ul class="inner">`;
     for (let i = 0; i < neighbors.length; i++) {
         const dep = `<li>
                 <b>Token: </b> ${neighbors[i]['token']} <br>

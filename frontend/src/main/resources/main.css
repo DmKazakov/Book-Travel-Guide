@@ -2,12 +2,12 @@ body {
     margin: 0;
 }
 
-.main {
+ul.main {
     margin: 0;
     padding: 0;
 }
 
-.main li {
+ul.main li {
     list-style-type: none;
     cursor: pointer;
     position: relative;
@@ -22,17 +22,30 @@ body {
     user-select: none;
 }
 
-.main li:nth-child(odd) {
+ul.main li:nth-child(odd) {
     background: #f9f9f9;
 }
 
-.main li:hover {
+ul.review li {
+    padding: 12px 8px 60px 40px;
+}
+
+ul.review li:hover {
     background: #d7d7d7;
 }
 
-.main li.interesting {
+ul.review li.interesting {
     background: #4CAF50;
     color: #fff;
+}
+
+ul.inner li {
+    display: inline-block;
+    background: transparent;
+}
+
+ul.inner li:nth-child(odd) {
+    background: transparent;
 }
 
 button.update {
@@ -48,12 +61,14 @@ button.update {
 
 button.delete {
     background-color: #af371b;
-    margin: 25px;
     border: 1px solid #800605;
     color: white;
     padding: 10px 24px;
+    margin: 5px;
     cursor: pointer;
     font-size: 18px;
+    display: inline-block;
+    position: relative !important;
     float: right;
 }
 
@@ -66,6 +81,7 @@ button.delete {
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 1;
 }
 
 .navigation li {

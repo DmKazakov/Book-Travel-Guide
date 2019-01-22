@@ -13,14 +13,15 @@ $(document).ready(function () {
             const location = locationContext['location'];
             const quote = locationContext['sentence'];
             const id = locationContext['id'];
-            const listItem = `<li id=${id}> <b>Location: </b> ${location} <br> ${quote} 
-                <button id=${id} class=delete>Delete</button> </li>`;
+            const listItem = `<li id=${id}> <b>Location: </b> ${location} <br> ${quote} <br>
+                <button name=${id} class="delete">Delete</button> </li>`;
             $(".main").append(listItem);
 
-            $(`#${id}`).click(function deleteQuote() {
+            $("button.delete").click(function deleteQuote() {
                 $.post("/delete", {
-                    id: id
-                })
+                    id: this.name
+                });
+                $(`#${this.name}`).remove();
             });
         }
 
