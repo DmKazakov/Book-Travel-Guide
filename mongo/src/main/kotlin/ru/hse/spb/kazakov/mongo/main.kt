@@ -14,18 +14,19 @@ fun main(args: Array<String>) {
         bookLocStore.save(it)
     }
 
-    val bookLocs = HashMap<String, BookLocation>()
+    val bookLocs = HashMap<Pair<String, String>, BookLocation>()
     bookLocStore.getReviewedLocations().forEach {
-        val duplicate = bookLocs[it.location.sentence]
-        if(duplicate != null && duplicate.location.location == it.location.location) {
-            println(duplicate.location.sentence)
-            println(duplicate.location.location)
-            println(it.location.sentence)
-            println(it.location.location)
-            println()
-            bookLocStore.deleteQuote(it.morphiaId)
+        val pair = Pair(it.location.location, it.location.sentence)
+        val duplicate = bookLocs[pair]
+        if(duplicate != null) {
+            if (it.userRating < 0) {
+                bookLocStore.deleteQuote(it.morphiaId)
+            } else {
+                bookLocStore.deleteQuote(duplicate.morphiaId)
+                bookLocs[pair] = it
+            }
         } else {
-            bookLocs[it.location.sentence] = it
+            bookLocs[pair] = it
         }
     }
 }
