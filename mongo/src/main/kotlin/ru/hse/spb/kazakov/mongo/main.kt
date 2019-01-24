@@ -8,9 +8,19 @@ fun main(args: Array<String>) {
     }
 
     val bookLocStore = BookLocationStore(Datastore.getInstance(args[0]))
-    bookLocStore.getAllLocations().forEach {
+    bookLocStore.getReviewedLocations().forEach {
         it.neighborsAmod = it.neighborsAmod
         it.outgoingAmod = it.outgoingAmod
         bookLocStore.save(it)
+    }
+
+    val bookLocs = HashMap<String, BookLocation>()
+    bookLocStore.getReviewedLocations().forEach {
+        val duplicate = bookLocs[it.location.sentence]
+        if(duplicate != null && duplicate.location.location == it.location.location) {
+            bookLocStore.deleteQuote(it.morphiaId)
+        } else {
+            bookLocs[it.location.sentence] = it
+        }
     }
 }
