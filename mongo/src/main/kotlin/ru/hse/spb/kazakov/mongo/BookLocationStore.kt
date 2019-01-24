@@ -53,7 +53,7 @@ class BookLocationStore(private val datastore: Datastore) {
             datastore.createQuery(BookLocation::class.java)
                     .asList()
 
-    fun getQuotesByLocation(location: String): List<BookLocation> =
+    fun getQuotesByLocation(location: String?): List<BookLocation> =
             datastore.createQuery(BookLocation::class.java)
                     .filter("location.location ==", location)
                     .asList()
