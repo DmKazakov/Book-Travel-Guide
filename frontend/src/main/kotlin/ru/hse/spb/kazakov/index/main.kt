@@ -79,7 +79,7 @@ fun main(args: Array<String>) {
                 call.respondText(toJSON(locations))
             }
 
-            get("search") {
+            get("/search") {
                 val parameters = call.receive<ValuesMap>()
                 val location = parameters["location"]
                 val quotes = bookLocStore.getQuotesByLocation(location)
