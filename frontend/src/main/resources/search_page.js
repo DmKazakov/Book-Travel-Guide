@@ -1,7 +1,11 @@
 $(document).ready(function () {
     function addLocation(locationContext) {
+        const title = locationContext['title'];
         const quote = locationContext['sentence'];
-        const listItem = `<li> ${quote} </li>`;
+        const listItem = `<li>
+            <b>Title: </b> ${title} <br>
+            ${quote} 
+            </li>`;
         $(".main").append(listItem);
     }
 

@@ -18,9 +18,9 @@ data class BookLocation(
         private set
     var reviewsNumber = 0
         private set
-    var outgoingAmod = -1
+    var outgoingAmod = location.outDeps.asSequence().filter { it.dependencyType == "amod" }.count()
         get() = location.outDeps.asSequence().filter { it.dependencyType == "amod" }.count()
-    var neighborsAmod = -1
+    var neighborsAmod = location.leftNeighbors.union(location.rightNeighbors).count { it.partOfSpeech.isAdjective() }
         get() = location.leftNeighbors.union(location.rightNeighbors).count { it.partOfSpeech.isAdjective() }
     var sentiment = 2
 

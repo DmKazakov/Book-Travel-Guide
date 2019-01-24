@@ -3,8 +3,6 @@ package ru.hse.spb.kazakov.mongo
 import org.bson.types.ObjectId
 import org.mongodb.morphia.Datastore
 
-private const val QUOTES_LIMIT = 100
-
 class BookLocationStore(private val datastore: Datastore) {
 
     fun save(bookLocation: BookLocation) {
@@ -61,6 +59,7 @@ class BookLocationStore(private val datastore: Datastore) {
     fun getQuotesByLocation(location: String?): List<BookLocation> =
             datastore.createQuery(BookLocation::class.java)
                     .filter("location.location ==", location)
+                    .filter("neighborsAmod >", 0)
                     .asList()
 
     fun deleteQuote(id: ObjectId) = datastore.delete(BookLocation::class.java, id)
