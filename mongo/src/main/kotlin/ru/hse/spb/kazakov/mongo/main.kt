@@ -18,6 +18,11 @@ fun main(args: Array<String>) {
     bookLocStore.getReviewedLocations().forEach {
         val duplicate = bookLocs[it.location.sentence]
         if(duplicate != null && duplicate.location.location == it.location.location) {
+            println(duplicate.location.sentence)
+            println(duplicate.location.location)
+            println(it.location.sentence)
+            println(it.location.location)
+            println()
             bookLocStore.deleteQuote(it.morphiaId)
         } else {
             bookLocs[it.location.sentence] = it
