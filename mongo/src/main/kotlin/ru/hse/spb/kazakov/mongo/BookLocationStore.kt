@@ -31,22 +31,22 @@ class BookLocationStore(private val datastore: Datastore) {
 
     fun getOutgoingAmodLocations(): List<BookLocation> =
             datastore.createQuery(BookLocation::class.java)
+                    .filter("reviewsNumber !=", 0)
                     .filter("outgoingAmod >", 0)
                     .order("-outgoingAmod")
-                    .limit(QUOTES_LIMIT)
                     .asList()
 
     fun getNeighborsAdjLocations(): List<BookLocation> =
             datastore.createQuery(BookLocation::class.java)
+                    .filter("reviewsNumber !=", 0)
                     .filter("neighborsAmod >", 0)
                     .order("-neighborsAmod")
-                    .limit(QUOTES_LIMIT)
                     .asList()
 
     fun getSentimentLocations(): List<BookLocation> =
             datastore.createQuery(BookLocation::class.java)
+                    .filter("reviewsNumber !=", 0)
                     .filter("sentiment ==", 2)
-                    .limit(QUOTES_LIMIT)
                     .asList()
 
     fun getAllLocations(): List<BookLocation> =
