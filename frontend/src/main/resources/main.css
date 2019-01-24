@@ -1,3 +1,5 @@
+* {box-sizing: border-box;}
+
 body {
     margin: 0;
 }
@@ -73,33 +75,51 @@ button.delete {
 }
 
 .navigation {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
     background-color: #333;
-    position: fixed;
-    top: 0;
-    width: 100%;
     z-index: 1;
 }
 
-.navigation li {
+.navigation a {
     float: left;
-}
-
-.navigation li a {
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    font-size: 17px;
 }
 
-.navigation li a:hover:not(.active) {
+.navigation a:hover:not(.active) {
     background-color: #111;
 }
 
-.active {
+.navigation a.active {
     background-color: #4CAF50;
+}
+
+.navigation .search-container {
+    float: right;
+}
+
+.navigation input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+}
+
+.navigation .search-container button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+.navigation .search-container button:hover {
+    background: #ccc;
 }

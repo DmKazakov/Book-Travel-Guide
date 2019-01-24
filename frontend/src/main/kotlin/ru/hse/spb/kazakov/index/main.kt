@@ -78,6 +78,13 @@ fun main(args: Array<String>) {
                 val locations = bookLocStore.getSentimentLocations()
                 call.respondText(toJSON(locations))
             }
+
+            get("search") {
+                val parameters = call.receive<ValuesMap>()
+                val location = parameters["location"]
+                val quotes = bookLocStore.getQuotesByLocation(location)
+                call.respondText(toJSON(quotes))
+            }
         }
     }
     server.start(wait = true)

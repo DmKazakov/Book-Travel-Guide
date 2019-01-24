@@ -7,19 +7,26 @@
             integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
             crossorigin="anonymous">
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="quotesLoader.js"></script>
 </head>
 <body>
-<ul class="navigation">
-    <li><a href="/static/review.html">Review</a></li>
-    <li><a href="/static/positive_rate.html">Quotes+</a></li>
-    <li><a href="/static/negative_rate.html">Quotes-</a></li>
-    <li><a href="/static/outgoing_amod.html">Outgoing amod</a></li>
-    <li><a href="/static/neighbors_adj.html">Neighbors adj</a></li>
-    <li><a class="active" href="/static/sentiment.html">Sentiment</a></li>
-</ul>
+<div class="navigation">
+    <a href="/static/review.html">Review</a>
+    <a href="/static/positive_rate.html">Quotes+</a>
+    <a href="/static/negative_rate.html">Quotes-</a>
+    <a href="/static/outgoing_amod.html">Outgoing amod</a>
+    <a href="/static/neighbors_adj.html">Neighbors adj</a>
+    <a class="active" href="/static/sentiment.html">Sentiment</a>
+    <div class="search-container">
+        <form action="/search_page.html">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+</div>
 
-<div style="padding:20px;margin-top:20px">
+<div style="margin-left:20px">
 
     <h1>Quotes with high sentiment level:</h1>
 
